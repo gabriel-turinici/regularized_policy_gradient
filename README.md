@@ -8,6 +8,8 @@ Stefana-Lucia Anita [ORCID : 0000−1111−2222−3333]
 and 
 Gabriel Turinici [ORCID : 0000−0003−2713−006X]
 
+Both authors contributed to write this program.
+
 To obtain the result run the python file MAB_gammaL2_v2.py
 (python3 MAB_gammaL2_v2.py)
 
