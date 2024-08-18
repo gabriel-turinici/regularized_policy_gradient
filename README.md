@@ -4,7 +4,7 @@ Reinforcement learning algorithms in the class of regularized policy gradients
 This is an implementation of the L2 regularized policy gradients described in the paper 
 "Convergence of a L2 regularized Policy Gradient Algorithm for the Multi Armed Bandit"
 by 
-Stefana-Lucia Anita [ORCID : 0000−1111−2222−3333] 
+Stefana-Lucia Anita [ORCID : [0000-0003-3369-9551] 
 and 
 Gabriel Turinici [ORCID : 0000−0003−2713−006X]
 
