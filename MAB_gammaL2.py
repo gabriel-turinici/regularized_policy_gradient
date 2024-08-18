@@ -168,16 +168,29 @@ class GradientBandit_gamma(BaseBandit):
 # Evaluate a list of bandit problems
 # --------------------
 
-def run_bandits(bandits, n_runs, n_steps):
-    """ simulates a list of bandit running each for n_teps and then averaging over n_runs """
+def run_bandits(bandits, n_runs, n_steps,same_q_across_bandits=True):
+    """ simulates a list of bandit running each for n_teps and then averaging over n_runs 
+    
+    when same_q_across_bandits=True all bandits are supposed to have same no_arms, same true_q_mean
+    and q_true are the same across bandings for each run i.e., at run =17 all badints have same q_true
+    """
 
     rewards = np.zeros((len(bandits), n_runs, n_steps))
     optimal_action_freqs = np.zeros_like(rewards)
+    
+    if(same_q_across_bandits):
+        q_true_list=[]
+        for jj in range(n_runs):
+            q_true_list.append(np.random.randn(bandits[0].k_arm) + bandits[0].true_q_mean)
 
+    
     for b, bandit in enumerate(bandits):
         for run in tqdm(range(n_runs)):
             # runs are independent; so reset bandit
             bandit.reset()
+            if(same_q_across_bandits):
+                bandit.q_true=q_true_list[run]
+
             bandit.nt =0.0 #counter for time : nt=0 is initial value, updated at each use of "update_q" function
             bandit.rho_t =bandit.rho0 
             bandit.gamma_t =bandit.gamma0 
@@ -234,13 +247,23 @@ def fig_2_5(runs=2000, steps=1000,filename="fig_2_5_reward",gamma_list=[0.0,0.01
     plt.ylabel('Average reward')
     plt.legend()
 
-    save_fig(filename)
+#    save_fig(filename)    
+#    plt.savefig("figures__"+filename+".pdf")
+    plt.savefig(filename+".pdf")
+    plt.close()
+
+
+    
+    
+    
 
 if __name__ == '__main__':
     no_arms=10
+    no_runs=1000#1000
+    no_steps=2000#2000
 #    warnings.filterwarnings("error")
     H_uniform=np.zeros(no_arms)
-    fig_2_5(runs=1000,steps=2000,filename="nonbiased_gamma_0and0_01and10",
+    fig_2_5(runs=no_runs,steps=no_steps,filename="nonbiased_gamma_0and0_01and10",
             gamma_list=[0.0,0.01,10.0],gamma_decay_cst=0.0,
             rho_decay_cst=0.0,rho0=0.05,init_h_val=H_uniform)
     print('figure 1 left, done')
@@ -248,17 +271,17 @@ if __name__ == '__main__':
     H_biased=np.zeros(no_arms)
     H_biased[0]=5.0
 
-    fig_2_5(runs=1000,steps=2000,filename="biased_gamma_0and0_01",
+    fig_2_5(runs=no_runs,steps=no_steps,filename="biased_gamma_0and0_01",
             gamma_list=[0.0,0.01],gamma_decay_cst=0.0,
             rho_decay_cst=0.0,rho0=0.05,init_h_val=H_biased)
     print('figure 1 right, done')
 
-    fig_2_5(runs=1000,steps=2000,filename="biased_gamma_0and0_01and10_rhot",
+    fig_2_5(runs=no_runs,steps=no_steps,filename="biased_gamma_0and0_01and10_rhot",
                 gamma_list=[0.0,0.01,10.0],gamma_decay_cst=0.0,
                 rho_decay_cst=0.05,rho0=1.0,init_h_val=H_biased)
     print('figure 2, done')
 
-    fig_2_5(runs=1000,steps=2000,filename="biased_gamma_0and10_gammat_rhot",
+    fig_2_5(runs=no_runs,steps=no_steps,filename="biased_gamma_0and10_gammat_rhot",
             gamma_list=[0.0,10.0],gamma_decay_cst=0.2,
             rho_decay_cst=0.05,rho0=1.0,init_h_val=H_biased)
     print('figure 3, done')
