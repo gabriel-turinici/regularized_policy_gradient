@@ -11,7 +11,7 @@ Gabriel Turinici [ORCID : 0000−0003−2713−006X]
 Both authors contributed to write this program.
 
 To obtain the result run the python file MAB_gammaL2.py
-(python3 MAB_gammaL2_v2.py)
+(python3 MAB_gammaL2.py)
 
-You will obtain 4 images called "figure_....jpg" which are the ones in the paper. Run time is about 30 minutes for the 4 images.
+You will obtain 4 images called "nonbiased ...pdf" and "biased...pdf" which are the ones in the paper. Run time is about 30 minutes for the 4 images.
 
