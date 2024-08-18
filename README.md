@@ -2,7 +2,7 @@
 Reinforcement learning algorithms in the class of regularized policy gradients
 
 This is an implementation of the L2 regularized policy gradients described in the paper 
-"On the Convergence of a Regularized Policy Gradient for the Multi Armed Bandit"
+"Convergence of a L2 regularized Policy Gradient Algorithm for the Multi Armed Bandit"
 by 
 Stefana-Lucia Anita [ORCID : 0000−1111−2222−3333] 
 and 
